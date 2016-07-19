@@ -27,6 +27,7 @@ RUN chmod 600 /etc/postfix/virtual_aliases
 RUN postmap /etc/postfix/virtual_aliases
 
 RUN touch /etc/postfix/sender_access
+RUN postmap /etc/postfix/sender_access
 
 RUN groupadd -g 5000 vmail
 RUN useradd -g vmail -u 5000 vmail -d /var/mail/vmail -m

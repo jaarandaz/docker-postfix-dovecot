@@ -27,21 +27,35 @@ smtpd_tls_cert_file = /etc/ssl/private/ssl-chain-mail.pem
 smtpd_tls_key_file = /etc/ssl/private/ssl-key-decrypted-mail.key
 smtpd_tls_security_level = may
 
+# Recently added
+smtpd_tls_ask_ccert = yes
+smtpd_tls_ciphers = high
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_timeout = 3600s
+
 smtpd_use_tls=yes
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_type = dovecot
+
 # The path is relative to $queue_directory:
 #   $postconf |grep queue_directory
 #   queue_directory = /var/spool/postfix
 smtpd_sasl_path = private/auth
+
 # Do not accept SASL authentication over unencrypted connections
 smtpd_tls_auth_only = yes
 
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
+
+# smtp stuff
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_tls_note_starttls_offer = yes
+smtp_tls_security_level = may
+smtp_use_tls = yes
 
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
