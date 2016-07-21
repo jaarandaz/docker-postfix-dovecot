@@ -39,6 +39,8 @@ COPY assets/postgrey/postgrey /etc/default/postgrey
 COPY assets/postfix-policyd-spf-python/policyd-spf.conf /etc/postfix-policyd-spf-python/policyd-spf.conf
 
 RUN mkdir -p /etc/opendkim
+COPY assets/opendkim/mail /etc/opendkim/mail
+COPY assets/opendkim/mail.txt /etc/opendkim/mail.txt
 COPY assets/opendkim/KeyTable /etc/opendkim/KeyTable
 COPY assets/opendkim/SigningTable /etc/opendkim/SigningTable
 COPY assets/opendkim/TrustedHosts /etc/opendkim/TrustedHosts
