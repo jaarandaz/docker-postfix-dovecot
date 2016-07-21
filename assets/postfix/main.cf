@@ -115,3 +115,8 @@ smtpd_recipient_restrictions =
     permit
 
 policy-spf_time_limit = 3600s
+
+milter_default_action = accept
+milter_connect_macros = j {daemon_name} v {if_name} _
+non_smtpd_milters = $smtpd_milters
+smtpd_milters = unix:/spamass/spamass.sock unix:/opendkim/opendkim.sock
