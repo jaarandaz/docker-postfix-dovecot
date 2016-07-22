@@ -5,7 +5,7 @@ MAINTAINER Jose Ant. Aranda
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update
-RUN apt-get -y update && apt-get install -y supervisor ca-certificates dovecot-imapd dovecot-lmtpd postfix postgrey postfix-policyd-spf-python opendkim opendkim-tools rsyslog 
+RUN apt-get -y update && apt-get install -y supervisor ca-certificates dovecot-imapd dovecot-lmtpd postfix postgrey postfix-policyd-spf-python opendkim opendkim-tools spamass-milter pyzor razor libmail-dkim-perl rsyslog 
 
 RUN apt-get purge exim4 exim4-*
 
@@ -33,6 +33,8 @@ RUN groupadd -g 5000 vmail
 RUN useradd -g vmail -u 5000 vmail -d /var/mail/vmail -m
 
 COPY assets/dovecot/99-mail-stack-delivery.conf /etc/dovecot/conf.d/99-mail-stack-delivery.conf
+COPY assets/dovecot/users /etc/dovecot/users
+RUN chmod 400 /etc/dovecot/users
 
 COPY assets/postgrey/postgrey /etc/default/postgrey
 
@@ -45,6 +47,9 @@ COPY assets/opendkim/KeyTable /etc/opendkim/KeyTable
 COPY assets/opendkim/SigningTable /etc/opendkim/SigningTable
 COPY assets/opendkim/TrustedHosts /etc/opendkim/TrustedHosts
 COPY assets/opendkim/opendkim.conf /etc/opendkim.conf
+
+RUN chown opendkim:opendkim /etc/opendkim/mail
+RUN chmod 400 /etc/opendkim/mail
 
 RUN mkdir /var/spool/postfix/opendkim
 RUN chown opendkim:root /var/spool/postfix/opendkim

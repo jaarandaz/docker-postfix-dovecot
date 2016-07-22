@@ -8,6 +8,8 @@ cp -f /etc/services /var/spool/postfix/etc/services
 mkdir -p /var/mail/vmail
 chown -R vmail:vmail /var/mail/vmail
 
+chown postgrey:postgrey /var/lib/postgrey
+
 chown -R debian-spamd:debian-spamd /var/lib/spamassassin
 sa-update
 sa-compile
