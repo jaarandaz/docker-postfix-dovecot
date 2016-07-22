@@ -1,3 +1,4 @@
 assets/certs/*
 assets/opendkim/mail
 assets/opendkim/mail.txt
+assets/dovecot/users
